@@ -13,4 +13,7 @@ class oposRouter (object):
 			return True
 
 	def allow_syncdb (self, db, model):
-		return model._meta.app_label != 'opos'
+		if model._meta.app_label == 'opos':
+			return False
+		else:
+			return True

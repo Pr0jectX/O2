@@ -225,7 +225,7 @@ class People(models.Model):
         db_table = 'PEOPLE'
 
 class PickupNumber(models.Model):
-    id = models.IntegerField(db_column='ID') # Field name made lowercase.
+    id = models.IntegerField(db_column='ID', primary_key=True) # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'PICKUP_NUMBER'
@@ -283,8 +283,8 @@ class ProductsCat(models.Model):
 
 class ProductsCom(models.Model):
     id = models.CharField(db_column='ID', primary_key=True, max_length=255) # Field name made lowercase.
-    product = models.ForeignKey(Products, db_column='PRODUCT') # Field name made lowercase.
-    product2 = models.ForeignKey(Products, db_column='PRODUCT2') # Field name made lowercase.
+    product = models.ForeignKey(Products, db_column='PRODUCT', related_name='productscom_rel') # Field name made lowercase.
+    product2 = models.ForeignKey(Products, db_column='PRODUCT2', related_name='productscom_rel2') # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'PRODUCTS_COM'
@@ -477,7 +477,7 @@ class Tickets(models.Model):
         db_table = 'TICKETS'
 
 class Ticketsnum(models.Model):
-    id = models.IntegerField(db_column='ID') # Field name made lowercase.
+    id = models.IntegerField(db_column='ID', primary_key=True) # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'TICKETSNUM'
@@ -489,7 +489,7 @@ class TicketsnumPayment(models.Model):
         db_table = 'TICKETSNUM_PAYMENT'
 
 class TicketsnumRefund(models.Model):
-    id = models.IntegerField(db_column='ID') # Field name made lowercase.
+    id = models.IntegerField(db_column='ID', primary_key=True) # Field name made lowercase.
     class Meta:
         managed = False
         db_table = 'TICKETSNUM_REFUND'

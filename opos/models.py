@@ -11,6 +11,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+from compositekey import db
+
 class Applications(models.Model):
     id = models.CharField(db_column='ID', primary_key=True, max_length=255) # Field name made lowercase.
     name = models.CharField(db_column='NAME', max_length=255) # Field name made lowercase.
@@ -458,6 +460,7 @@ class Thirdparties(models.Model):
         db_table = 'THIRDPARTIES'
 
 class Ticketlines(models.Model):
+    id = db.MultiFieldPK ("ticket", "line")
     ticket = models.ForeignKey('Tickets', db_column='TICKET') # Field name made lowercase.
     line = models.IntegerField(db_column='LINE') # Field name made lowercase.
     product = models.ForeignKey(Products, db_column='PRODUCT', blank=True, null=True) # Field name made lowercase.

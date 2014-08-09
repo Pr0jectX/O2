@@ -139,9 +139,14 @@ class Customers(models.Model):
     curdate = models.DateTimeField(db_column='CURDATE', blank=True, null=True) # Field name made lowercase.
     curdebt = models.FloatField(db_column='CURDEBT', blank=True, null=True) # Field name made lowercase.
     image = models.TextField(db_column='IMAGE', blank=True) # Field name made lowercase.
+
+    def __unicode__ (self):
+        return self.name
     class Meta:
         managed = False
         db_table = 'CUSTOMERS'
+        verbose_name = 'Customer'
+
 
 class Draweropened(models.Model):
     opendate = models.DateTimeField(db_column='OPENDATE') # Field name made lowercase.

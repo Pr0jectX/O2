@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^customers/$', 'opos.views.customers', name='customers'),
     url(r'^customers/edit/(?P<customerpk>.*)/$', 'opos.views.customeredit', name='customer-edit'),
     url(r'^customers/add/$', 'opos.views.customeradd', name='customer-add'),
+    url(r'^customers/sales/(?P<customerpk>.*)/$', 'opos.views.customersales', name='customer-sales'),
     
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),

@@ -9,6 +9,7 @@ from django.db.models import Max, Avg, Sum
 from opos.models import Customers
 from opos.forms import CustomerAddForm, CustomerForm
 
+
 def is_staff (user):
 	if user.is_staff or user.is_superuser:
 		return True
@@ -20,10 +21,32 @@ def is_staff (user):
 def dashboard (request):
 
 	c = {}
+
 	c['curdebt'] = Customers.objects.all().aggregate(Sum('curdebt'))['curdebt__sum']
 	c['maxdebt'] = Customers.objects.all().aggregate(Sum('maxdebt'))['maxdebt__sum']
 	c['highestcurdebt'] = Customers.objects.all().aggregate(Max('curdebt'))['curdebt__max']
+
+
+
+	from opos.sql import get_total_sale
+	c['totalsale'] = get_total_sale ()[0]
+
 	return render (request, "dashboard.html", c)
+
+
+@user_passes_test (is_staff)
+def customersales(request, customerpk):
+	from opos.sql import get_customer_ticketlines
+
+	customer = get_object_or_404 (Customers, pk=customerpk)
+
+	ticketlines = get_customer_ticketlines (customer.pk)
+
+
+	c = {}
+	c['customer'] = customer
+	c['ticketlines'] = ticketlines
+	return render (request, "customer-sales.html", c)
 
 
 @user_passes_test (is_staff)

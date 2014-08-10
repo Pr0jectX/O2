@@ -1,0 +1,42 @@
+{% extends "base/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h2>Customer: {{customer.name}}</h2>
+
+{% if ticketlines %}
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+<!--			<th>Ticket</th> -->
+			<th>Time</th>
+			<th>Product</th>
+			<th>Units</th>
+			<th>Price</th>
+			<th>Tax</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for ticketline in ticketlines %}
+			<tr>
+<!--				<td>{{ticketline.TICKET}}</td> -->
+				<td>{{ticketline.DATENEW}}</td>
+				<td>{{ticketline.NAME}}</td>
+				<td>{{ticketline.UNITS}}</td>
+				<td>{{ticketline.PRICE}}</td>
+				<td>{{ticketline.RATE}}</td>
+				<td>{{ticketline.SUM}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% else %}
+<p class="error">No sales for this customer yet.</p>
+{% endif %}
+
+
+{% endblock %}

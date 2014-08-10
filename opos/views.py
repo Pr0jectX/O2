@@ -27,8 +27,14 @@ def customers (request):
 @user_passes_test (is_staff)
 def customeredit (request, customerpk):
 	from opos.models import Customers
+	from opos.forms import CustomerForm
 
 	customer = get_object_or_404 (Customers, pk=customerpk)
+	
+	customeredit = CustomerForm (instance=customer)
+	
 	c = {}
 	c['customer'] = customer
+	c['customeredit'] = customeredit
+	
 	return render (request, "customeredit.html", c)

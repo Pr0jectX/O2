@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h2>Customer: {{customer.name}}</h2>
+
+<form method="POST" action="{% url 'customer-edit' customer.pk %}">
+{% csrf_token %}
+
+{% bootstrap_form customeredit %}
+
+{% buttons %}
+<button type="submit" class="btn btn-primary">Save</button>
+{% endbuttons %}
+
+</form>
+
+{% endblock %}

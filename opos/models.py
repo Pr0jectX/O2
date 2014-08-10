@@ -137,7 +137,7 @@ class Customers(models.Model):
     phone2 = models.CharField(db_column='PHONE2', max_length=255, blank=True) # Field name made lowercase.
     fax = models.CharField(db_column='FAX', max_length=255, blank=True) # Field name made lowercase.
     notes = models.CharField(db_column='NOTES', max_length=255, blank=True) # Field name made lowercase.
-    visible = models.BooleanField(db_column='VISIBLE') # Field name made lowercase. This field type is a guess.
+    visible = models.BooleanField(default=True, db_column='VISIBLE') # Field name made lowercase. This field type is a guess.
     curdate = models.DateTimeField(db_column='CURDATE', blank=True, null=True) # Field name made lowercase.
     curdebt = models.FloatField(db_column='CURDEBT', blank=True, null=True) # Field name made lowercase.
     image = models.TextField(db_column='IMAGE', blank=True) # Field name made lowercase.

@@ -117,13 +117,13 @@ class Csvimport(models.Model):
         db_table = 'CSVIMPORT'
 
 class Customers(models.Model):
-    id = models.CharField(db_column='ID', primary_key=True, max_length=255) # Field name made lowercase.
-    searchkey = models.CharField(db_column='SEARCHKEY', unique=True, max_length=255) # Field name made lowercase.
+    id = models.CharField(db_column='ID', primary_key=True, max_length=255, help_text="Unique ID per user. Perhaps an ID from another system.") # Field name made lowercase.
+    searchkey = models.CharField(db_column='SEARCHKEY', unique=True, max_length=255, help_text="Perhaps an ID from another system.", verbose_name="search key") # Field name made lowercase.
     taxid = models.CharField(db_column='TAXID', max_length=255, blank=True) # Field name made lowercase.
-    name = models.CharField(db_column='NAME', max_length=255) # Field name made lowercase.
+    name = models.CharField(db_column='NAME', max_length=255, help_text="Name of the person or account.") # Field name made lowercase.
     taxcategory = models.ForeignKey('Taxcustcategories', db_column='TAXCATEGORY', blank=True, null=True) # Field name made lowercase.
-    card = models.CharField(db_column='CARD', max_length=255, blank=True) # Field name made lowercase.
-    maxdebt = models.FloatField(db_column='MAXDEBT') # Field name made lowercase.
+    card = models.CharField(db_column='CARD', max_length=255, blank=True, help_text="Customer card prefixed by 'c'.") # Field name made lowercase.
+    maxdebt = models.FloatField(db_column='MAXDEBT', verbose_name="max debt") # Field name made lowercase.
     address = models.CharField(db_column='ADDRESS', max_length=255, blank=True) # Field name made lowercase.
     address2 = models.CharField(db_column='ADDRESS2', max_length=255, blank=True) # Field name made lowercase.
     postal = models.CharField(db_column='POSTAL', max_length=255, blank=True) # Field name made lowercase.

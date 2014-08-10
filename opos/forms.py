@@ -6,9 +6,9 @@ from django.forms import ModelForm
 class CustomerAddForm (ModelForm):
 	class Meta:
 		model = Customers
-		fields = ['name', 'searchkey', 'id', 'card', 'maxdebt']
+		fields = ['name', 'searchkey', 'id', 'maxdebt', 'card']
 
 class CustomerForm (ModelForm):
 	class Meta:
 		model = Customers
-		fields = ['name', 'card', 'maxdebt', 'id']
+		fields = ['name', 'maxdebt', 'id', 'card']

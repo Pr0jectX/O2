@@ -32,7 +32,7 @@ def customeradd (request):
 		form = CustomerAddForm (request.POST)
 		if form.is_valid ():
 			form.save ()
-			redirect ('customers')
+			return redirect ('customers')
 	c = {}
 	c['customeredit'] = CustomerAddForm ()
 	return render (request, "customer-add.html", c)

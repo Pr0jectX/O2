@@ -460,7 +460,6 @@ class Thirdparties(models.Model):
         db_table = 'THIRDPARTIES'
 
 class Ticketlines(models.Model):
-    id = db.MultiFieldPK ("ticket", "line")
     ticket = models.ForeignKey('Tickets', db_column='TICKET') # Field name made lowercase.
     line = models.IntegerField(db_column='LINE') # Field name made lowercase.
     product = models.ForeignKey(Products, db_column='PRODUCT', blank=True, null=True) # Field name made lowercase.

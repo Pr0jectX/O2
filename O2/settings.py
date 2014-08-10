@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'south',
     'opos',
     'django_extensions',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,6 +89,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
 STATIC_URL = '/static/'
 
 DATABASE_ROUTERS = ('O2.router.oposRouter',)
+
+LOGIN_REDIRECT_URL = '/'

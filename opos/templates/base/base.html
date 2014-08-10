@@ -1,0 +1,41 @@
+{% extends "bootstrap3/bootstrap3.html" %}
+
+{% load bootstrap3 %}
+
+{% block bootstrap3_title %}O2{% endblock %}
+
+{% block bootstrap3_extra_head %}
+<link rel="stylesheet" href="/static/style.css">
+{% endblock %}
+
+{% block bootstrap3_content %}
+
+
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="class navbar-brand" href="#">O2</a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul>
+					{% if request.user.is_authenticated %}
+						<li><a href="#">Dashboard</a></li>
+						{% if request.user.is_superuser %}
+							<li><a href="/admin">Admin</a></li>
+						{% endif %}
+						Logged in as {{request.user.username}}
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="content">
+
+		{% bootstrap_messages %}
+
+		{% block content %}
+		{% endblock %}
+
+	</div>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404
@@ -23,18 +23,40 @@ def customers (request):
 	c['customers'] = customers
 	return render (request, "customers.html", c)
 
+@user_passes_test (is_staff)
+def customeradd (request):
+	from opos.models import Customers
+	from opos.forms import CustomerAddForm
+
+	if request.method == 'POST':
+		form = CustomerAddForm (request.POST)
+		if form.is_valid ():
+			form.save ()
+			redirect ('customers')
+	c = {}
+	c['customeredit'] = CustomerAddForm ()
+	return render (request, "customer-add.html", c)
 
 @user_passes_test (is_staff)
 def customeredit (request, customerpk):
 	from opos.models import Customers
 	from opos.forms import CustomerForm
-
+	from django import forms
+	
 	customer = get_object_or_404 (Customers, pk=customerpk)
-	
-	customeredit = CustomerForm (instance=customer)
-	
+
+	if request.method == 'POST':
+		form = CustomerForm (request.POST, instance=customer)
+		if form.is_valid ():
+			form.save ()
+			return redirect ('customers')
+	else:
+		form = CustomerForm (instance=customer)
+
+
 	c = {}
 	c['customer'] = customer
-	c['customeredit'] = customeredit
+	form.fields['id'] = forms.CharField (widget=forms.widgets.HiddenInput())
+	c['customeredit'] = form
 	
-	return render (request, "customeredit.html", c)
+	return render (request, "customer-edit.html", c)

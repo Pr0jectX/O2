@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<h2>Customers</h2>
+
+{% if customers %}
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Max debt</th>
+			<th>Current debt</th>
+			<th>Card</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for customer in customers %}
+			<tr>
+				<td><a href="{% url 'customer-edit' customer.pk %}" class="btn btn-primary btn-xs">Edit</a></td>
+				<td>{{customer.name}}</td>
+				<td>{{customer.maxdebt}}</td>
+				<td>{{customer.curdebt}}</td>
+				<td>{{customer.card}}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% else %}
+<p class="error">No customers added</p>
+{% endif %}
+
+{% endblock %}

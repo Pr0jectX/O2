@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404
+from django import forms
+
+from django.db.models import Max, Avg, Sum
+
+from opos.models import Customers
+from opos.forms import CustomerAddForm, CustomerForm
 
 def is_staff (user):
 	if user.is_staff or user.is_superuser:
@@ -12,21 +18,24 @@ def is_staff (user):
 
 @user_passes_test (is_staff)
 def dashboard (request):
+
 	c = {}
+	c['curdebt'] = Customers.objects.all().aggregate(Sum('curdebt'))['curdebt__sum']
+	c['maxdebt'] = Customers.objects.all().aggregate(Sum('maxdebt'))['maxdebt__sum']
+	c['highestcurdebt'] = Customers.objects.all().aggregate(Max('curdebt'))['curdebt__max']
 	return render (request, "dashboard.html", c)
+
 
 @user_passes_test (is_staff)
 def customers (request):
-	from opos.models import Customers
 	customers = Customers.objects.all ()
 	c = {}
 	c['customers'] = customers
 	return render (request, "customers.html", c)
 
+
 @user_passes_test (is_staff)
 def customeradd (request):
-	from opos.models import Customers
-	from opos.forms import CustomerAddForm
 
 	if request.method == 'POST':
 		form = CustomerAddForm (request.POST)
@@ -37,11 +46,9 @@ def customeradd (request):
 	c['customeredit'] = CustomerAddForm ()
 	return render (request, "customer-add.html", c)
 
+
 @user_passes_test (is_staff)
 def customeredit (request, customerpk):
-	from opos.models import Customers
-	from opos.forms import CustomerForm
-	from django import forms
 	
 	customer = get_object_or_404 (Customers, pk=customerpk)
 

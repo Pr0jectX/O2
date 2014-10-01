@@ -90,3 +90,24 @@ def customeredit (request, customerpk):
 	c['customeredit'] = form
 	
 	return render (request, "customer-edit.html", c)
+
+
+
+def selfdebtcheck (request):
+	
+	c = {}
+	if request.method == 'POST':
+		card = 'c' + request.POST.get("card")
+		
+		try:
+			customer = Customers.objects.get (card=card)
+		except:
+			return render (request, "self-debtcheck.html", c)
+		
+		customer = get_object_or_404 (Customers, card=card)
+		c['customer'] = customer
+		c['leftdebt'] = customer.maxdebt - customer.curdebt
+		return render (request, "self-debtshow.html", c)
+
+	else:
+		return render (request, "self-debtcheck.html", c)

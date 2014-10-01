@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="page-header">
+<h1>{{customer.name}}</h1>
+</div>
+
+<div class="well text-center" style="font-size: 200%;">
+
+<table class="table table-bordered table-striped">
+<tr>
+<th>Kredittgrense:</th>
+<td>{{customer.maxdebt}}</td>
+</tr>
+<tr>
+<th>Brukt kreditt:</th>
+<td>{{customer.curdebt}}</td>
+</tr>
+<tr>
+<th>Gjenv&aelig;rende kreditt:</th>
+<td>{{leftdebt}}</td>
+</tr>
+</table>
+
+<p id="counter"></p>
+
+</div>
+
+<script>
+$.fn.counter = function (callback, duration, msg1, msg2) {
+	msg1 = msg1 || "";
+	msg2 = msg2 || "";
+	var container = $(this[0]).html(msg1 + duration + msg2);
+	var counter = setInterval(function () {
+		if (--duration) {
+			container.html(msg1 + duration + msg2);
+		} else {
+			clearInterval(counter);
+			callback.call(container);   
+		}
+	}, 1000);
+};
+$("#counter").counter(redirect, 7, "Siden blir tilbakestilt om ", " sekunder.");
+
+function redirect () {
+    window.location = "{% url "self-debtcheck" %}";
+}
+
+
+</script>
+{% endblock %}

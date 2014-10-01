@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+
+{% load bootstrap3 %}
+
+{% block content %}
+
+<center>
+<div class="page-header">
+<h1>KMS - kredittsjekker</h1>
+</div>
+<p style="font-size: 200%;">Skann kortet ditt her for å sjekke din kreditt!</p>
+
+<form method="POST" action="{% url 'self-debtcheck' %}">
+{% csrf_token %}
+
+<div class="center input-group input-group-lg">
+<input autofocus type="password" class="form-control" name="card">
+</div>
+<br />
+{% buttons %}
+<button type="submit" class="btn btn-primary">Sjekk!</button>
+{% endbuttons %}
+
+</form>
+
+</center>
+{% endblock %}

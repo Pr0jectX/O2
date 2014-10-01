@@ -16,4 +16,7 @@ urlpatterns = patterns('',
     
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout_then_login', name='logout'),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
+
+
+	 url(r'^self/debt/$', 'opos.views.selfdebtcheck', name='self-debtcheck'),
 )

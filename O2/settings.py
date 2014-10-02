@@ -94,6 +94,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
 STATIC_URL = '/static/'
 
+BOOTSTRAP3 = {
+	'javascript_in_head': True,
+}
+
 DATABASE_ROUTERS = ('O2.router.oposRouter',)
 
 LOGIN_REDIRECT_URL = '/'
@@ -109,3 +113,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.messages.context_processors.messages",
 	"django.core.context_processors.request",
 )
+
+try:
+	from settings_local import *
+except:
+	pass
